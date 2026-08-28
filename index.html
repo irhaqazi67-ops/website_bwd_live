@@ -1,0 +1,2416 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WBD — Wood Brand Design | Handcrafted Wooden Printing Stamps</title>
+<meta name="description" content="WBD crafts premium handcrafted wooden printing stamps for fabric, branding and packaging — carved from natural wood, one impression at a time.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='16' fill='%233B2415'/%3E%3Ctext x='50' y='68' font-size='58' text-anchor='middle' fill='%23E8D4A8' font-family='Georgia,serif'%3EW%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;0,800;1,500&family=Poppins:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+/* ============================= TOKENS ============================= */
+:root{
+  --bg-cream:#F6EEDC;
+  --bg-cream-alt:#EFE1C4;
+  --panel:#FBF6EA;
+  --walnut-950:#241408;
+  --walnut-900:#3B2415;
+  --walnut-800:#4A2E1C;
+  --walnut-600:#6B4226;
+  --walnut-400:#8B5A34;
+  --tan-300:#C9A876;
+  --tan-200:#DCC49A;
+  --gold-600:#A9762F;
+  --gold-500:#BE8B3E;
+  --ink:#2A1B10;
+  --ink-soft:#5A4632;
+  --paper:#FBF6EC;
+  --ok:#5C7A4E;
+  --err:#A24B3D;
+  --radius-sm:6px;
+  --radius-md:14px;
+  --radius-lg:26px;
+  --shadow-1: 0 1px 2px rgba(36,20,8,.08), 0 8px 24px -8px rgba(36,20,8,.18);
+  --shadow-2: 0 20px 60px -20px rgba(36,20,8,.45);
+  --ease: cubic-bezier(.22,.9,.28,1);
+  --maxw: 1220px;
+}
+
+*,*::before,*::after{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  margin:0;
+  background:var(--bg-cream);
+  color:var(--ink);
+  font-family:'Poppins',sans-serif;
+  font-weight:400;
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+@media (prefers-reduced-motion: reduce){
+  *{animation-duration:.001ms !important; animation-iteration-count:1 !important; transition-duration:.001ms !important; scroll-behavior:auto !important;}
+}
+h1,h2,h3,h4{font-family:'Playfair Display',serif; margin:0; color:var(--walnut-950); font-weight:700;}
+p{margin:0;}
+a{color:inherit; text-decoration:none;}
+img{max-width:100%; display:block;}
+button{font-family:inherit; cursor:pointer;}
+.mono{font-family:'Space Mono',monospace;}
+::selection{background:var(--gold-500); color:#fff;}
+
+:focus-visible{outline:2px solid var(--gold-600); outline-offset:3px; border-radius:4px;}
+
+/* wood-grain texture overlay */
+.grain{
+  position:fixed; inset:0; pointer-events:none; z-index:9000; opacity:.05; mix-blend-mode:multiply;
+  background-image:
+    repeating-linear-gradient(90deg, rgba(36,20,8,.6) 0 1px, transparent 1px 3px),
+    repeating-linear-gradient(0deg, rgba(36,20,8,.3) 0 1px, transparent 1px 4px);
+}
+
+.wrap{max-width:var(--maxw); margin:0 auto; padding:0 28px;}
+.eyebrow{
+  font-family:'Space Mono',monospace; text-transform:uppercase; letter-spacing:.18em;
+  font-size:12px; color:var(--gold-600); display:inline-flex; align-items:center; gap:10px; margin-bottom:14px;
+}
+.eyebrow::before{content:""; width:26px; height:1px; background:var(--gold-600);}
+.btn{
+  display:inline-flex; align-items:center; justify-content:center; gap:8px;
+  padding:14px 28px; border-radius:999px; border:1.5px solid var(--walnut-900);
+  font-weight:600; font-size:14.5px; letter-spacing:.02em; background:transparent; color:var(--walnut-900);
+  transition:transform .35s var(--ease), background .3s ease, color .3s ease, box-shadow .3s ease;
+}
+.btn:hover{transform:translateY(-2px);}
+.btn-solid{background:var(--walnut-900); color:var(--paper); box-shadow:var(--shadow-1);}
+.btn-solid:hover{background:var(--walnut-950); box-shadow:0 14px 30px -10px rgba(36,20,8,.55);}
+.btn-gold{background:var(--gold-600); border-color:var(--gold-600); color:#fff;}
+.btn-gold:hover{background:var(--gold-500);}
+.btn-block{width:100%;}
+.btn-sm{padding:9px 16px; font-size:13px;}
+.btn-icon{padding:10px; border-radius:50%; width:42px; height:42px;}
+
+/* ============================= HEADER ============================= */
+.site-header{
+  position:sticky; top:0; z-index:500; backdrop-filter:blur(10px);
+  background:rgba(246,238,220,.86); border-bottom:1px solid rgba(59,36,21,.1);
+}
+.header-inner{display:flex; align-items:center; justify-content:space-between; padding:16px 28px; max-width:var(--maxw); margin:0 auto;}
+.logo{display:flex; align-items:center; gap:10px;}
+.logo-badge{
+  display:inline-flex; align-items:center; padding:6px 10px; border-radius:10px;
+  background:linear-gradient(135deg,var(--tan-200),var(--bg-cream-alt));
+  box-shadow:inset 0 0 0 1px rgba(59,36,21,.12), 0 1px 2px rgba(59,36,21,.08);
+}
+.logo-badge img{height:30px; width:auto; display:block;}
+.footer-brand .logo-badge{padding:10px 16px; border-radius:14px;}
+.footer-brand .logo-badge img{height:52px;}
+nav.main-nav{display:flex; gap:34px;}
+nav.main-nav a{
+  font-size:14px; font-weight:500; color:var(--ink-soft); position:relative; padding:4px 0;
+}
+nav.main-nav a::after{content:""; position:absolute; left:0; bottom:-2px; width:0; height:2px; background:var(--gold-600); transition:width .3s var(--ease);}
+nav.main-nav a:hover{color:var(--walnut-950);}
+nav.main-nav a:hover::after{width:100%;}
+.header-actions{display:flex; align-items:center; gap:8px;}
+.icon-btn{
+  position:relative; width:42px; height:42px; border-radius:50%; display:flex; align-items:center; justify-content:center;
+  border:1px solid rgba(59,36,21,.18); background:transparent; color:var(--walnut-900); transition:all .25s ease;
+}
+.icon-btn:hover{background:var(--walnut-900); color:var(--paper); transform:translateY(-2px);}
+.icon-btn svg{width:19px; height:19px;}
+.badge{
+  position:absolute; top:-4px; right:-4px; background:var(--gold-600); color:#fff; font-size:10px; font-weight:700;
+  width:18px; height:18px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-family:'Space Mono',monospace;
+}
+.menu-toggle{display:none; width:42px; height:42px; align-items:center; justify-content:center; border:1px solid rgba(59,36,21,.18); border-radius:50%; background:none;}
+.menu-toggle span,.menu-toggle span::before,.menu-toggle span::after{content:""; display:block; width:18px; height:2px; background:var(--walnut-900); position:relative; transition:.3s;}
+.menu-toggle span::before{position:absolute; top:-6px;}
+.menu-toggle span::after{position:absolute; top:6px;}
+
+/* ============================= HERO ============================= */
+.hero {
+    position: relative;
+
+    width: 100%;
+    max-width: var(--maxw);
+
+    min-height: 680px;
+
+    margin: 0 auto;
+
+    padding: 70px 40px 60px;
+
+    display: grid;
+
+    grid-template-columns:
+        minmax(0, 1fr)
+        minmax(320px, 420px);
+
+    gap: 70px;
+
+    align-items: center;
+
+    justify-content: center;
+}
+.hero-copy h1{font-size:clamp(40px,5.6vw,68px); line-height:1.03; letter-spacing:-.01em;}
+.hero-copy h1 em{font-style:italic; color:var(--gold-600);}
+.hero-copy p.lead{margin-top:22px; max-width:460px; font-size:17px; color:var(--ink-soft);}
+.hero-actions{margin-top:34px; display:flex; gap:16px; flex-wrap:wrap;}
+.hero-stats{display:flex; gap:34px; margin-top:52px; flex-wrap:wrap;}
+.hero-stats div strong{display:block; font-family:'Playfair Display',serif; font-size:26px; color:var(--walnut-950);}
+.hero-stats div span{font-size:12px; color:var(--ink-soft); text-transform:uppercase; letter-spacing:.08em;}
+
+/* ---- 3D stamp scene (signature element) ---- */
+.stamp-showcase-card {
+  width: 320px;
+  background: #fdfbf7;
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: 0 20px 40px rgba(59, 36, 21, 0.08), 0 2px 6px rgba(59, 36, 21, 0.04);
+  border: 1px solid rgba(140, 88, 48, 0.15);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.stamp-showcase-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 25px 50px rgba(59, 36, 21, 0.12);
+}
+
+/* Elegant wood-textured or soft neutral frame for the stamp */
+.stamp-image-frame {
+  width: 100%;
+  height: 240px;
+  background: radial-gradient(circle, #f5efe6 0%, #ebdccb 100%);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 15px;
+  position: relative;
+  box-shadow: inset 0 2px 6px rgba(59, 36, 21, 0.06);
+  border: 1px dashed rgba(140, 88, 48, 0.3);
+}
+
+.stamp-image-frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: drop-shadow(0 12px 16px rgba(40, 20, 8, 0.22));
+  transition: transform 0.4s ease;
+}
+
+.stamp-showcase-card:hover .stamp-image-frame img {
+  transform: scale(1.05);
+}
+
+.stamp-info {
+  margin-top: 20px;
+}
+
+.stamp-tag {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: #8c5830;
+  font-weight: 600;
+  display: block;
+  margin-bottom: 6px;
+}
+
+.stamp-info h3 {
+  font-size: 20px;
+  color: #361f0e;
+  margin: 0 0 8px 0;
+  font-family: serif;
+  font-weight: 700;
+}
+
+.stamp-info p {
+  font-size: 13px;
+  color: #6e5340;
+  margin: 0;
+  font-style: italic;
+  opacity: 0.9;
+}
+/* ============================= MARQUEE ============================= */
+.marquee-strip{ background:var(--walnut-950); color:var(--tan-200); overflow:hidden; padding:16px 0; border-top:1px solid rgba(0,0,0,.2); border-bottom:1px solid rgba(0,0,0,.2);}
+.marquee-track{ display:flex; width:max-content; gap:48px; animation:scrollX 26s linear infinite;}
+.marquee-track span{ font-family:'Space Mono',monospace; font-size:13px; letter-spacing:.18em; text-transform:uppercase; display:flex; align-items:center; gap:48px; white-space:nowrap;}
+.marquee-track span::after{content:"◆"; color:var(--gold-500); font-size:9px;}
+@keyframes scrollX{from{transform:translateX(0);} to{transform:translateX(-50%);}}
+
+/* ============================= SECTIONS COMMON ============================= */
+section{padding:104px 0;}
+.section-head{max-width:640px; margin-bottom:56px;}
+.section-head.center{margin-left:auto; margin-right:auto; text-align:center;}
+.section-head h2{font-size:clamp(30px,4vw,44px); line-height:1.1;}
+.section-head p{margin-top:16px; color:var(--ink-soft); font-size:15.5px;}
+
+/* ---- Why wood ---- */
+.why-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:26px;}
+.why-card{
+  background:var(--panel); border-radius:var(--radius-md); padding:34px 30px; border:1px solid rgba(59,36,21,.08);
+  transition:transform .4s var(--ease), box-shadow .4s var(--ease);
+}
+.why-card:hover{transform:translateY(-6px); box-shadow:var(--shadow-1);}
+.why-num{font-family:'Space Mono',monospace; color:var(--tan-300); font-size:34px; font-weight:700;}
+.why-card h3{margin-top:14px; font-size:21px;}
+.why-card p{margin-top:10px; color:var(--ink-soft); font-size:14.5px;}
+.why-icon{width:46px; height:46px; border-radius:12px; background:var(--bg-cream-alt); display:flex; align-items:center; justify-content:center; margin-bottom:18px; color:var(--walnut-800);}
+.why-icon svg{width:22px; height:22px;}
+
+/* ============================= SHOP ============================= */
+#shop{background:var(--bg-cream-alt); position:relative;}
+.filter-row{display:flex; gap:10px; flex-wrap:wrap; margin-bottom:40px;}
+.filter-chip{
+  padding:9px 20px; border-radius:999px; border:1.5px solid rgba(59,36,21,.25); background:transparent; color:var(--ink-soft);
+  font-size:13.5px; font-weight:500; transition:.25s ease;
+}
+.filter-chip.active,.filter-chip:hover{background:var(--walnut-900); color:var(--paper); border-color:var(--walnut-900);}
+.product-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:26px;}
+.product-card{
+  background:var(--panel); border-radius:var(--radius-md); overflow:hidden; border:1px solid rgba(59,36,21,.08);
+  transition:transform .5s var(--ease), box-shadow .5s var(--ease); position:relative;
+}
+.product-card:hover{ box-shadow:var(--shadow-1);}
+.product-media{
+  height:230px; position:relative; display:flex; align-items:center; justify-content:center;
+  background:radial-gradient(circle at 30% 20%, var(--tan-200), var(--bg-cream-alt) 70%);
+  transform-style:preserve-3d; transition:transform .1s linear;
+  overflow:hidden;
+}
+.product-media .glyph{width:96px; height:96px; color:var(--walnut-800); filter:drop-shadow(0 12px 14px rgba(36,20,8,.25)); transition:transform .4s var(--ease);}
+.product-card:hover .glyph{transform:translateY(-6px) rotate(-4deg) scale(1.05);}
+.product-tag{position:absolute; top:14px; left:14px; background:var(--walnut-950); color:var(--tan-200); font-family:'Space Mono',monospace; font-size:10.5px; letter-spacing:.08em; padding:5px 10px; border-radius:999px; text-transform:uppercase; z-index:2;}
+
+/* Image-holding glyph: fills the whole media box instead of the 96px icon box */
+.product-media .glyph.glyph-img{
+  width:100%;
+  height:100%;
+  position:absolute;
+  top:0;
+  left:0;
+  filter:none;
+}
+.product-media .glyph.glyph-img img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  display:block;
+}
+.product-card:hover .glyph.glyph-img{
+  transform:scale(1.05);
+}
+
+.wish-btn{
+  position:absolute; top:12px; right:12px; width:36px; height:36px; border-radius:50%; background:rgba(251,246,234,.9);
+  display:flex; align-items:center; justify-content:center; border:1px solid rgba(59,36,21,.12); transition:.25s; z-index:2;
+}
+.wish-btn svg{width:16px; height:16px; fill:none; stroke:var(--walnut-900); stroke-width:1.8;}
+.wish-btn.active svg{fill:var(--err); stroke:var(--err);}
+.wish-btn:hover{transform:scale(1.08);}
+.product-info{padding:20px 22px 24px;}
+.product-info .cat{font-family:'Space Mono',monospace; font-size:10.5px; letter-spacing:.1em; text-transform:uppercase; color:var(--gold-600);}
+.product-info h3{font-size:19px; margin-top:8px;}
+.product-info .desc{font-size:13px; color:var(--ink-soft); margin-top:6px; min-height:36px;}
+.price-row{display:flex; align-items:center; justify-content:space-between; margin-top:16px;}
+.price{font-family:'Space Mono',monospace; font-weight:700; font-size:17px; color:var(--walnut-950);}
+.price small{font-weight:400; color:var(--ink-soft); text-decoration:line-through; margin-left:8px; font-size:12px;}
+.card-actions{display:flex; gap:8px; margin-top:16px;}
+.card-actions .btn{flex:1; padding:10px 12px; font-size:12.8px;}
+.stars{display:flex; gap:2px; color:var(--gold-500); margin-top:6px;}
+.stars svg{width:12px; height:12px; fill:currentColor;}
+
+.shop-more{text-align:center; margin-top:46px;}
+
+/* ============================= PROCESS ============================= */
+.process-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:0; position:relative;}
+.process-step{padding:0 26px; position:relative;}
+.process-step:not(:last-child)::after{
+  content:""; position:absolute; top:26px; right:-13px; width:26px; height:1px;
+  background:repeating-linear-gradient(90deg,var(--tan-300) 0 6px, transparent 6px 11px);
+}
+.step-idx{font-family:'Playfair Display',serif; font-style:italic; font-size:42px; color:var(--tan-300);}
+.process-step h3{margin-top:10px; font-size:20px;}
+.process-step p{margin-top:10px; color:var(--ink-soft); font-size:14.5px;}
+
+/* ============================= CRAFTSMANSHIP / SPLIT ============================= */
+.split{display:grid; grid-template-columns:1fr 1fr; gap:60px; align-items:center;}
+.split-visual{
+  aspect-ratio:4/5; border-radius:var(--radius-lg); background:linear-gradient(160deg,var(--walnut-600),var(--walnut-950));
+  display:flex; align-items:center; justify-content:center; position:relative; overflow:hidden;
+}
+.split-visual .glyph{width:42%; color:var(--tan-200); opacity:.9;}
+.split-visual::before{content:""; position:absolute; inset:18px; border:1px solid rgba(220,196,154,.28); border-radius:calc(var(--radius-lg) - 8px);}
+.split-quote{font-family:'Playfair Display',serif; font-style:italic; font-size:clamp(26px,3vw,36px); line-height:1.32; color:var(--walnut-950);}
+.split-quote span{color:var(--gold-600);}
+.split-note{margin-top:22px; color:var(--ink-soft); font-size:15px;}
+.signature-line{margin-top:30px; display:flex; align-items:center; gap:14px;}
+.signature-line .rule{width:44px; height:1px; background:var(--walnut-900);}
+.signature-line span{font-family:'Space Mono',monospace; font-size:12px; letter-spacing:.1em; text-transform:uppercase;}
+
+/* ============================= TESTIMONIALS ============================= */
+.testi-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:26px;}
+.testi-card{background:var(--panel); border-radius:var(--radius-md); padding:30px; border:1px solid rgba(59,36,21,.08);}
+.testi-card .stars{margin-bottom:14px;}
+.testi-card p.quote{font-size:14.5px; color:var(--ink-soft); font-style:italic;}
+.testi-who{display:flex; align-items:center; gap:12px; margin-top:20px;}
+.avatar{width:38px; height:38px; border-radius:50%; background:linear-gradient(135deg,var(--tan-300),var(--walnut-600)); display:flex; align-items:center; justify-content:center; color:#fff; font-weight:700; font-size:13px; font-family:'Space Mono',monospace;}
+.testi-who strong{display:block; font-size:13.5px;}
+.testi-who span{font-size:11.5px; color:var(--ink-soft);}
+
+/* ============================= NEWSLETTER ============================= */
+.newsletter{
+  background:var(--walnut-950); border-radius:var(--radius-lg); padding:64px 60px; display:flex; align-items:center; justify-content:space-between; gap:40px; color:var(--paper);
+}
+.newsletter h2{color:var(--paper); font-size:clamp(24px,3vw,34px); max-width:400px;}
+.newsletter p{color:var(--tan-200); margin-top:12px; font-size:14px;}
+.news-form{display:flex; gap:10px; min-width:360px;}
+.news-form input{
+  flex:1; padding:14px 18px; border-radius:999px; border:1px solid rgba(220,196,154,.3); background:rgba(255,255,255,.06); color:var(--paper); font-size:14px;
+}
+.news-form input::placeholder{color:rgba(220,196,154,.6);}
+.news-form input:focus{outline:none; border-color:var(--gold-500);}
+
+/* ============================= FOOTER ============================= */
+footer{padding:70px 0 30px; border-top:1px solid rgba(59,36,21,.12);}
+.footer-grid{display:grid; grid-template-columns:1.4fr 1fr 1fr 1fr; gap:40px;}
+.footer-brand p{margin-top:16px; color:var(--ink-soft); font-size:13.5px; max-width:280px;}
+.footer-col h4{font-size:13px; text-transform:uppercase; letter-spacing:.08em; color:var(--walnut-950); margin-bottom:16px;}
+.footer-col a{display:block; font-size:13.5px; color:var(--ink-soft); margin-bottom:10px; transition:.2s;}
+.footer-col a:hover{color:var(--gold-600);}
+.social-row{display:flex; gap:10px; margin-top:18px;}
+.footer-bottom{display:flex; justify-content:space-between; margin-top:60px; padding-top:24px; border-top:1px solid rgba(59,36,21,.1); font-size:12px; color:var(--ink-soft); flex-wrap:wrap; gap:10px;}
+
+/* ============================= DRAWERS / MODALS ============================= */
+.overlay{
+  position:fixed; inset:0; background:rgba(36,20,8,.5); backdrop-filter:blur(2px); opacity:0; pointer-events:none; transition:opacity .35s var(--ease); z-index:900;
+}
+.overlay.show{opacity:1; pointer-events:auto;}
+.drawer{
+  position:fixed; top:0; right:0; height:100%; width:420px; max-width:92vw; background:var(--paper); z-index:950;
+  box-shadow:-20px 0 60px rgba(36,20,8,.25); transform:translateX(100%); transition:transform .45s var(--ease);
+  display:flex; flex-direction:column;
+}
+.drawer.show{transform:translateX(0);}
+.drawer-head{display:flex; align-items:center; justify-content:space-between; padding:24px 26px; border-bottom:1px solid rgba(59,36,21,.1);}
+.drawer-head h3{font-size:20px;}
+.drawer-close{width:36px; height:36px; border-radius:50%; border:1px solid rgba(59,36,21,.2); background:none; display:flex; align-items:center; justify-content:center;}
+.drawer-body{flex:1; overflow-y:auto; padding:20px 26px;}
+.drawer-foot{padding:22px 26px; border-top:1px solid rgba(59,36,21,.1);}
+.line-item{display:flex; gap:14px; padding:16px 0; border-bottom:1px solid rgba(59,36,21,.08);}
+.line-media{width:64px; height:64px; border-radius:10px; background:var(--bg-cream-alt); display:flex; align-items:center; justify-content:center; flex-shrink:0; overflow:hidden;}
+.line-media svg{width:32px; height:32px; color:var(--walnut-800);}
+.line-info{flex:1;}
+.line-info h4{font-size:14.5px;}
+.line-info .cat{font-size:11px; color:var(--ink-soft); text-transform:uppercase; letter-spacing:.06em;}
+.qty-row{display:flex; align-items:center; gap:10px; margin-top:8px;}
+.qty-btn{width:24px; height:24px; border-radius:50%; border:1px solid rgba(59,36,21,.25); background:none; font-size:14px; line-height:1; display:flex; align-items:center; justify-content:center;}
+.qty-val{font-family:'Space Mono',monospace; font-size:13px; min-width:16px; text-align:center;}
+.line-remove{background:none; border:none; color:var(--err); font-size:11.5px; text-decoration:underline; margin-left:auto; padding:0;}
+.line-price{font-family:'Space Mono',monospace; font-size:14px; font-weight:700; white-space:nowrap;}
+.empty-state{ text-align:center; padding:60px 10px; color:var(--ink-soft);}
+.empty-state svg{width:52px; height:52px; margin:0 auto 16px; color:var(--tan-300);}
+.summary-row{display:flex; justify-content:space-between; font-size:14px; margin-bottom:10px; color:var(--ink-soft);}
+.summary-row.total{font-size:17px; font-weight:700; color:var(--walnut-950); margin-top:12px; padding-top:12px; border-top:1px dashed rgba(59,36,21,.2);}
+
+/* =========================================================
+   MODAL — COMPLETE PREMIUM STYLE
+   ========================================================= */
+
+.modal {
+    position: fixed;
+
+    top: 50%;
+    left: 50%;
+
+    transform: translate(-50%, -46%);
+
+    width: 460px;
+    max-width: 92vw;
+    max-height: 88vh;
+
+    overflow-y: auto;
+    overflow-x: hidden;
+
+    background: var(--paper);
+
+    border-radius: var(--radius-lg);
+
+    border: 1px solid rgba(120, 75, 40, .12);
+
+    z-index: 960;
+
+    box-shadow:
+        0 35px 80px rgba(45, 25, 10, .22),
+        0 10px 25px rgba(45, 25, 10, .12);
+
+    opacity: 0;
+    pointer-events: none;
+
+    transition:
+        opacity .35s var(--ease),
+        transform .35s var(--ease);
+
+    scrollbar-width: thin;
+    scrollbar-color:
+        rgba(105, 65, 34, .45)
+        transparent;
+
+    scrollbar-gutter: stable;
+}
+
+.modal.show {
+    opacity: 1;
+
+    pointer-events: auto;
+
+    transform: translate(-50%, -50%);
+}
+
+
+/* =========================================================
+   PREMIUM SCROLLBAR
+   ========================================================= */
+
+.modal::-webkit-scrollbar {
+    width: 6px;
+}
+
+.modal::-webkit-scrollbar-track {
+    background: transparent;
+
+    margin: 18px 0;
+}
+
+.modal::-webkit-scrollbar-thumb {
+    background:
+        linear-gradient(
+            180deg,
+            #b8895a,
+            #76502e
+        );
+
+    border-radius: 999px;
+
+    border: 1px solid transparent;
+
+    background-clip: padding-box;
+
+    min-height: 45px;
+}
+
+.modal::-webkit-scrollbar-thumb:hover {
+    background:
+        linear-gradient(
+            180deg,
+            #96683e,
+            #4c2b16
+        );
+
+    background-clip: padding-box;
+}
+
+
+/* =========================================================
+   MODAL INNER
+   ========================================================= */
+
+.modal-inner {
+    padding: 40px 36px 44px;
+}
+
+
+/* =========================================================
+   CLOSE BUTTON
+   ========================================================= */
+
+.modal-close {
+    position: absolute;
+
+    top: 18px;
+    right: 18px;
+
+    width: 42px;
+    height: 42px;
+
+    padding: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    border:
+        1px solid
+        rgba(92, 55, 28, .18);
+
+    background:
+        rgba(255, 252, 246, .78);
+
+    color:
+        var(--walnut-900);
+
+    font-family:
+        Arial,
+        sans-serif;
+
+    font-size: 22px;
+    font-weight: 300;
+
+    line-height: 1;
+
+    cursor: pointer;
+
+    z-index: 1000;
+
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+
+    box-shadow:
+        0 5px 16px
+        rgba(55, 30, 12, .08),
+
+        inset 0 1px 0
+        rgba(255,255,255,.85);
+
+    transition:
+        background .25s ease,
+        color .25s ease,
+        transform .25s ease,
+        box-shadow .25s ease,
+        border-color .25s ease;
+}
+
+.modal-close:hover {
+    background: var(--walnut-900);
+
+    color: #fffaf2;
+
+    border-color: var(--walnut-900);
+
+    transform:
+        rotate(90deg)
+        scale(1.06);
+
+    box-shadow:
+        0 8px 22px
+        rgba(55, 30, 12, .20);
+}
+
+.modal-close:active {
+    transform:
+        rotate(90deg)
+        scale(.92);
+}
+
+.modal-close:focus-visible {
+    outline:
+        2px solid
+        var(--gold-600);
+
+    outline-offset: 3px;
+}
+
+
+/* =========================================================
+   NORMAL MODAL TABS
+   ========================================================= */
+
+.modal-tabs {
+    display: flex;
+
+    gap: 6px;
+
+    background:
+        var(--bg-cream-alt);
+
+    padding: 5px;
+
+    border-radius: 999px;
+
+    margin-bottom: 28px;
+
+    border:
+        1px solid
+        rgba(140, 88, 48, .08);
+
+    box-shadow:
+        inset 0 1px 2px
+        rgba(80, 45, 20, .05);
+}
+
+.modal-tab {
+    flex: 1;
+
+    padding: 10px;
+
+    border-radius: 999px;
+
+    border: none;
+
+    background: transparent;
+
+    font-size: 13.5px;
+
+    font-weight: 600;
+
+    color: var(--ink-soft);
+
+    cursor: pointer;
+
+    transition:
+        background .25s ease,
+        color .25s ease,
+        transform .25s ease;
+}
+
+.modal-tab:hover {
+    color: var(--walnut-900);
+
+    background:
+        rgba(255,255,255,.45);
+}
+
+.modal-tab.active {
+    background:
+        var(--walnut-900);
+
+    color: #fff;
+
+    box-shadow:
+        0 4px 10px
+        rgba(50,25,10,.16);
+}
+
+
+/* =========================================================
+   FORM FIELDS
+   ========================================================= */
+
+.field {
+    margin-bottom: 16px;
+}
+
+.field label {
+    display: block;
+
+    font-size: 12.5px;
+
+    font-weight: 600;
+
+    margin-bottom: 7px;
+
+    color: var(--walnut-800);
+}
+
+.field input,
+.field textarea {
+
+    width: 100%;
+
+    padding: 13px 14px;
+
+    border-radius: 10px;
+
+    border:
+        1.5px solid
+        rgba(59,36,21,.18);
+
+    background:
+        var(--bg-cream);
+
+    font-size: 14px;
+
+    font-family: inherit;
+
+    color: var(--ink);
+
+    transition:
+        border-color .2s ease,
+        background .2s ease,
+        box-shadow .2s ease;
+}
+
+.field input:focus,
+.field textarea:focus {
+
+    outline: none;
+
+    border-color:
+        var(--gold-600);
+
+    background: #fff;
+
+    box-shadow:
+        0 0 0 3px
+        rgba(170,120,60,.08);
+}
+
+.field textarea {
+    min-height: 120px;
+
+    resize: vertical;
+}
+
+.field-error {
+    color: var(--err);
+
+    font-size: 11.5px;
+
+    margin-top: 5px;
+
+    display: none;
+}
+
+
+/* =========================================================
+   HELPER ROW
+   ========================================================= */
+
+.helper-row {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    margin-top: 14px;
+
+    font-size: 12.5px;
+
+    color: var(--ink-soft);
+}
+
+.helper-row a {
+
+    color:
+        var(--gold-600);
+
+    font-weight: 600;
+
+    text-decoration: none;
+
+    transition: color .2s ease;
+}
+
+.helper-row a:hover {
+    color:
+        var(--walnut-900);
+}
+
+
+/* =========================================================
+   ACCOUNT CHIP
+   ========================================================= */
+
+.account-chip {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    padding: 16px;
+
+    background:
+        var(--bg-cream-alt);
+
+    border-radius: 12px;
+
+    margin-bottom: 20px;
+
+    border:
+        1px solid
+        rgba(140,88,48,.08);
+}
+
+.account-chip .avatar {
+
+    width: 44px;
+    height: 44px;
+
+    font-size: 15px;
+}
+
+
+/* =========================================================
+   PRODUCT QUICK VIEW
+   ========================================================= */
+
+.modal.pv-modal {
+    width: 760px;
+
+    max-width: 94vw;
+}
+
+.pv-body {
+
+    display: grid;
+
+    grid-template-columns:
+        1fr 1fr;
+
+    gap: 0;
+}
+
+.pv-media {
+
+    background:
+        radial-gradient(
+            circle at 30% 20%,
+            var(--tan-200),
+            var(--bg-cream-alt) 70%
+        );
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    padding: 40px;
+
+    border-radius:
+        var(--radius-lg)
+        0
+        0
+        var(--radius-lg);
+
+    overflow: hidden;
+}
+
+.pv-media svg {
+
+    width: 130px;
+    height: 130px;
+
+    color:
+        var(--walnut-800);
+}
+
+.pv-media img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    border-radius:14px;
+}
+
+.pv-info {
+    padding: 34px;
+}
+
+
+/* =========================================================
+   SUPPORT MODAL
+   ========================================================= */
+
+.modal.support-modal {
+
+    width: 680px;
+
+    max-width: 94vw;
+}
+
+.support-modal .modal-inner {
+
+    padding:
+        42px 40px 46px;
+}
+
+
+/* =========================================================
+   SUPPORT TABS
+   ========================================================= */
+
+.support-tabs {
+
+    display: flex;
+
+    gap: 6px;
+
+    background:
+        rgba(232, 213, 180, .55);
+
+    padding: 5px;
+
+    border-radius: 999px;
+
+    margin-bottom: 30px;
+
+    flex-wrap: wrap;
+
+    border:
+        1px solid
+        rgba(140,88,48,.08);
+
+    box-shadow:
+        inset 0 1px 2px
+        rgba(80,45,20,.05);
+}
+
+.support-tab {
+
+    padding:
+        10px 16px;
+
+    border-radius: 999px;
+
+    border: none;
+
+    background: transparent;
+
+    font-size: 12.5px;
+
+    font-weight: 600;
+
+    color:
+        var(--ink-soft);
+
+    white-space: nowrap;
+
+    cursor: pointer;
+
+    transition:
+        background .25s ease,
+        color .25s ease,
+        transform .25s ease;
+}
+
+.support-tab:hover {
+
+    color:
+        var(--walnut-900);
+
+    background:
+        rgba(255,255,255,.5);
+}
+
+.support-tab.active {
+
+    background:
+        var(--walnut-900);
+
+    color:
+        #fff;
+
+    box-shadow:
+        0 4px 10px
+        rgba(50,25,10,.16);
+}
+
+
+/* =========================================================
+   SUPPORT PANELS
+   ========================================================= */
+
+.support-panel {
+    display: none;
+}
+
+.support-panel.active {
+    display: block;
+}
+
+.support-panel h3 {
+
+    font-size: 24px;
+
+    margin-bottom: 7px;
+
+    color:
+        var(--walnut-950);
+}
+
+.support-panel .support-sub {
+
+    color:
+        var(--gold-600);
+
+    font-family:
+        'Space Mono',
+        monospace;
+
+    font-size: 11.5px;
+
+    letter-spacing: .08em;
+
+    text-transform: uppercase;
+
+    margin-bottom: 20px;
+
+    display: block;
+}
+
+
+/* =========================================================
+   SUPPORT CONTENT
+   ========================================================= */
+
+.support-block {
+
+    margin-bottom: 24px;
+}
+
+.support-block:last-child {
+    margin-bottom: 0;
+}
+
+.support-block h4 {
+
+    font-size: 15px;
+
+    color:
+        var(--walnut-900);
+
+    margin-bottom: 8px;
+}
+
+.support-block p {
+
+    font-size: 13.8px;
+
+    color:
+        var(--ink-soft);
+
+    line-height: 1.75;
+
+    margin: 0;
+}
+
+.support-block ul {
+
+    margin: 0;
+
+    padding-left: 20px;
+
+    color:
+        var(--ink-soft);
+
+    font-size: 13.8px;
+
+    line-height: 1.9;
+}
+
+
+/* =========================================================
+   SUPPORT TABLE
+   ========================================================= */
+
+.support-table {
+
+    width: 100%;
+
+    border-collapse: collapse;
+
+    margin-top: 8px;
+
+    font-size: 13.5px;
+}
+
+.support-table th,
+.support-table td {
+
+    text-align: left;
+
+    padding:
+        11px 12px;
+
+    border-bottom:
+        1px solid
+        rgba(59,36,21,.1);
+
+    color:
+        var(--ink-soft);
+}
+
+.support-table th {
+
+    color:
+        var(--walnut-900);
+
+    font-family:
+        'Space Mono',
+        monospace;
+
+    font-size: 11px;
+
+    text-transform: uppercase;
+
+    letter-spacing: .05em;
+}
+
+
+/* =========================================================
+   FAQ
+   ========================================================= */
+
+.faq-item {
+
+    border-bottom:
+        1px solid
+        rgba(59,36,21,.1);
+}
+
+.faq-item:last-child {
+    border-bottom: none;
+}
+
+.faq-item summary {
+
+    list-style: none;
+
+    cursor: pointer;
+
+    padding:
+        16px 4px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 20px;
+
+    font-size: 14px;
+
+    font-weight: 600;
+
+    color:
+        var(--walnut-950);
+}
+
+.faq-item summary::-webkit-details-marker {
+    display: none;
+}
+
+.faq-item summary::after {
+
+    content: "+";
+
+    flex-shrink: 0;
+
+    font-family:
+        'Space Mono',
+        monospace;
+
+    font-size: 18px;
+
+    color:
+        var(--gold-600);
+
+    transition:
+        transform .25s var(--ease);
+
+    font-weight: 400;
+}
+
+.faq-item[open] summary::after {
+
+    transform:
+        rotate(45deg);
+}
+
+.faq-item p {
+
+    padding:
+        0 4px 17px;
+
+    color:
+        var(--ink-soft);
+
+    font-size: 13.5px;
+
+    line-height: 1.75;
+
+    margin: 0;
+}
+
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 700px) {
+
+    .modal {
+
+        width: 94vw;
+
+        max-width: 94vw;
+
+        max-height: 90vh;
+
+        border-radius: 20px;
+    }
+
+    .modal-inner {
+
+        padding:
+            36px 22px 34px;
+    }
+
+    .modal-close {
+
+        top: 14px;
+        right: 14px;
+
+        width: 39px;
+        height: 39px;
+
+        font-size: 20px;
+    }
+
+
+    /* Product modal */
+
+    .modal.pv-modal {
+
+        width: 94vw;
+    }
+
+    .pv-body {
+
+        grid-template-columns: 1fr;
+    }
+
+    .pv-media {
+
+        min-height: 220px;
+
+        padding: 25px;
+
+        border-radius:
+            var(--radius-lg)
+            var(--radius-lg)
+            0
+            0;
+    }
+
+    .pv-info {
+        padding: 25px 22px 30px;
+    }
+
+
+    /* Support modal */
+
+    .modal.support-modal {
+
+        width: 94vw;
+
+        max-width: 94vw;
+    }
+
+    .support-modal .modal-inner {
+
+        padding:
+            35px 20px 34px;
+    }
+
+    .support-tabs {
+
+        gap: 5px;
+
+        padding: 5px;
+
+        border-radius: 16px;
+
+        justify-content: center;
+    }
+
+    .support-tab {
+
+        padding:
+            9px 11px;
+
+        font-size: 11.5px;
+    }
+
+    .support-panel h3 {
+        font-size: 21px;
+    }
+
+    .support-block p,
+    .support-block ul {
+
+        font-size: 13.2px;
+    }
+
+    .support-table {
+
+        font-size: 12px;
+
+        display: block;
+
+        overflow-x: auto;
+
+        white-space: nowrap;
+    }
+}
+
+
+/* =========================================================
+   VERY SMALL MOBILE
+   ========================================================= */
+
+@media (max-width: 400px) {
+
+    .modal {
+
+        width: 96vw;
+
+        max-width: 96vw;
+    }
+
+    .modal-inner {
+
+        padding:
+            34px 17px 30px;
+    }
+
+    .modal-close {
+
+        width: 36px;
+        height: 36px;
+
+        top: 12px;
+        right: 12px;
+    }
+
+    .support-tabs {
+
+        display: grid;
+
+        grid-template-columns:
+            1fr 1fr;
+
+        border-radius: 14px;
+    }
+
+    .support-tab {
+
+        width: 100%;
+    }
+}
+
+
+/* ============================= RESPONSIVE ============================= */
+@media (max-width:980px){
+  .hero{grid-template-columns:1fr; min-height:auto;}
+  .stamp-stage{height:420px;}
+  .why-grid,.product-grid,.testi-grid{grid-template-columns:repeat(2,1fr);}
+  .process-grid{grid-template-columns:1fr; gap:34px;}
+  .process-step::after{display:none;}
+  .split{grid-template-columns:1fr;}
+  .footer-grid{grid-template-columns:1fr 1fr;}
+  .newsletter{flex-direction:column; align-items:flex-start;}
+  .news-form{min-width:0; width:100%;}
+}
+@media (max-width:680px){
+  nav.main-nav{display:none;}
+  .menu-toggle{display:flex;}
+  .why-grid,.product-grid,.testi-grid{grid-template-columns:1fr;}
+  .footer-grid{grid-template-columns:1fr;}
+  section{padding:70px 0;}
+  .newsletter{padding:40px 26px;}
+}
+</style>
+</head>
+<body>
+
+<div class="grain"></div>
+
+<!-- ============================= HEADER ============================= -->
+<header class="site-header">
+  <div class="header-inner">
+    <a href="#home" class="logo">
+      <span class="logo-badge"><img src="img/Screenshot 2026-08-28 213306.png" alt="WBD — Wood Block Design"></span>
+    </a>
+    <nav class="main-nav">
+      <a href="#home">Home</a>
+      <a href="#shop">Shop</a>
+      <a href="#craft">Craftsmanship</a>
+      <a href="#process">Process</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <div class="header-actions">
+      <button class="icon-btn" id="openLogin" aria-label="Account">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.5-7 8-7s8 3 8 7"/></svg>
+      </button>
+      <button class="icon-btn" id="openWishlist" aria-label="Wishlist">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 20s-7-4.35-9.5-8.5C.7 8 2 4.5 5.5 4c2-.3 3.7.7 4.5 2.2.8-1.5 2.5-2.5 4.5-2.2C18 4.5 19.3 8 17.5 11.5 15 15.65 12 20 12 20z"/></svg>
+        <span class="badge" id="wishBadge" style="display:none;">0</span>
+      </button>
+      <button class="icon-btn" id="openCart" aria-label="Cart">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="9" cy="21" r="1.4"/><circle cx="18" cy="21" r="1.4"/><path d="M2.5 3h2l2.4 12.1a2 2 0 0 0 2 1.6h7.6a2 2 0 0 0 2-1.6L21 7H6"/></svg>
+        <span class="badge" id="cartBadge" style="display:none;">0</span>
+      </button>
+      <button class="menu-toggle" id="mobileToggle" aria-label="Menu"><span></span></button>
+    </div>
+  </div>
+</header>
+
+<!-- ============================= HERO ============================= -->
+<main>
+<section class="hero" id="home">
+  <div class="hero-copy reveal">
+    <span class="eyebrow">Handcrafted Wooden Stamps</span>
+    <h1>More Than a Stamp,<br><em>An Impression.</em></h1>
+    <p class="lead">WBD carves premium wooden printing blocks for fabric, branding and packaging — bringing depth, texture and story to every surface they touch, one carve at a time.</p>
+    <div class="hero-actions">
+      <a href="#shop" class="btn btn-solid">Shop the Collection</a>
+      <a href="#craft" class="btn">Our Craft</a>
+    </div>
+    <div class="hero-stats">
+      <div><strong>1,200+</strong><span>Stamps carved</span></div>
+      <div><strong>100%</strong><span>Natural wood</span></div>
+      <div><strong>4.9/5</strong><span>Customer rating</span></div>
+    </div>
+  </div>
+
+ <div class="stamp-showcase-card">
+  <div class="stamp-image-frame">
+    <img src="img/stamp.png" alt="Wood Block Design - Owl Stamp">
+  </div>
+  <div class="stamp-info">
+    <span class="stamp-tag">Hand-Carved Masterpiece</span>
+    <h3>The Artisan Owl Block</h3>
+    <p>Rooted in Tradition, Crafted for Your Home.</p>
+  </div>
+</div>
+</section>
+
+<div class="marquee-strip">
+  <div class="marquee-track">
+    <span>Handcrafted</span><span>Sustainable Wood</span><span>Precision Carved</span><span>Timeless Impressions</span><span>Made for Creative Brands</span>
+    <span>Handcrafted</span><span>Sustainable Wood</span><span>Precision Carved</span><span>Timeless Impressions</span><span>Made for Creative Brands</span>
+  </div>
+</div>
+
+<!-- ============================= WHY WOOD ============================= -->
+<section id="why">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">Why Choose Wood</span>
+      <h2>As a brand mark, wood speaks before your logo does.</h2>
+      <p>Machine-made stamps repeat perfectly and say nothing. A wood block carries the hand that carved it — every grain line becomes part of your brand's texture.</p>
+    </div>
+    <div class="why-grid">
+      <div class="why-card reveal">
+        <div class="why-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 12l9-9 9 9M5 10v10h14V10"/></svg></div>
+        <div class="why-num">01</div>
+        <h3>Natural &amp; Sustainable</h3>
+        <p>Sourced from responsibly managed timber, every block is a renewable alternative to plastic and metal stamping tools.</p>
+      </div>
+      <div class="why-card reveal">
+        <div class="why-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2l2.4 6.6L21 11l-6.6 2.4L12 20l-2.4-6.6L3 11l6.6-2.4z"/></svg></div>
+        <div class="why-num">02</div>
+        <h3>Carved for Precision</h3>
+        <p>Each design is hand-routed to hold fine detail and release ink evenly, so patterns stay crisp print after print.</p>
+      </div>
+      <div class="why-card reveal">
+        <div class="why-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg></div>
+        <div class="why-num">03</div>
+        <h3>Built to Outlast Trends</h3>
+        <p>A well-kept wood stamp improves with age. It's a tool your brand can reach for on year one and year ten.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================= SHOP ============================= -->
+<section id="shop">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">The Collection</span>
+      <h2>Premium Wooden Printing Blocks</h2>
+      <p>Handcrafted stamps for creative brands — for fabric, packaging, stationery and everything in between.</p>
+    </div>
+
+    <div class="filter-row reveal">
+      <button class="filter-chip active" data-filter="all">All Stamps</button>
+      <button class="filter-chip" data-filter="logo">Logo Stamps</button>
+      <button class="filter-chip" data-filter="pattern">Pattern Stamps</button>
+      <button class="filter-chip" data-filter="fabric">Fabric Printing</button>
+      <button class="filter-chip" data-filter="packaging">Packaging</button>
+    </div>
+
+    <div class="product-grid" id="productGrid"></div>
+
+    <div class="shop-more reveal">
+      <button class="btn" id="loadMoreBtn">View All Stamps</button>
+    </div>
+  </div>
+  
+</section>
+
+<!-- ============================= PROCESS ============================= -->
+<section id="process">
+  <div class="wrap">
+    <div class="section-head center reveal" style="margin-left:auto;margin-right:auto;">
+      <span class="eyebrow">How It Works</span>
+      <h2>From Block to Fabric</h2>
+      <p>A wood stamp only becomes a brand mark once it meets a surface. Here's how ours get there.</p>
+    </div>
+    <div class="process-grid">
+      <div class="process-step reveal">
+        <div class="step-idx">01</div>
+        <h3>Design the Pattern</h3>
+        <p>We hand-route your motif into durable wood, testing spacing so repeats align cleanly across the surface.</p>
+      </div>
+      <div class="process-step reveal">
+        <div class="step-idx">02</div>
+        <h3>Ink the Block</h3>
+        <p>Fabric-safe ink is rolled evenly across the carved face, filling every groove without pooling in the detail.</p>
+      </div>
+      <div class="process-step reveal">
+        <div class="step-idx">03</div>
+        <h3>Press the Impression</h3>
+        <p>Firm, even pressure transfers a clean, textured mark onto textile, paper or packaging — ready to repeat.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================= CRAFTSMANSHIP ============================= -->
+<section id="craft" style="background:var(--bg-cream-alt);">
+  <div class="wrap">
+    <div class="split">
+      <div class="split-visual reveal">
+        <svg class="glyph" viewBox="0 0 48 48" fill="currentColor"><path d="M24 8c-6 0-10 5-10 11 0 4 1.5 6.5 3 8l-2.5 6 5-2.5c1.4.6 3 1 4.5 1s3.1-.4 4.5-1l5 2.5-2.5-6c1.5-1.5 3-4 3-8 0-6-4-11-10-11z"/><circle cx="19.5" cy="18.5" r="2.6" fill="#3B2415"/><circle cx="28.5" cy="18.5" r="2.6" fill="#3B2415"/></svg>
+      </div>
+      <div class="reveal">
+        <span class="eyebrow">The Art of Detail</span>
+        <p class="split-quote">"Every groove is cut by hand — <span>the depth of the carve is what gives the impression its soul.</span>"</p>
+        <p class="split-note">Our carvers spend hours on a single block, balancing how deep to cut, how wide to space, and how much wood to leave standing so the final print reads clearly on cloth, card or box.</p>
+        <div class="signature-line">
+          <div class="rule"></div>
+          <span>The Mark of Mastery — WBD Studio</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================= TESTIMONIALS ============================= -->
+<section id="testimonials">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="eyebrow">Customer Stories</span>
+      <h2>Trusted by makers and brand studios</h2>
+    </div>
+    <div class="testi-grid">
+      <div class="testi-card reveal">
+        <div class="stars">★★★★★</div>
+        <p class="quote">"The pattern block held incredible detail even after fifty prints on cotton. It's now part of our packaging line."</p>
+        <div class="testi-who"><div class="avatar">SA</div><div><strong>Sana Ahmed</strong><span>Textile Studio, Karachi</span></div></div>
+      </div>
+      <div class="testi-card reveal">
+        <div class="stars">★★★★★</div>
+        <p class="quote">"Ordered a custom logo stamp for our boxes — the carving quality made our brand feel handmade and premium."</p>
+        <div class="testi-who"><div class="avatar">HK</div><div><strong>Hamza Khan</strong><span>Founder, Paperlane Co.</span></div></div>
+      </div>
+      <div class="testi-card reveal">
+        <div class="stars">★★★★★</div>
+        <p class="quote">"Fast delivery, and the fabric printing stamp set is exactly what our design classroom needed."</p>
+        <div class="testi-who"><div class="avatar">MR</div><div><strong>Mahnoor Raza</strong><span>Design Educator</span></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================= NEWSLETTER ============================= -->
+<section id="contact">
+  <div class="wrap">
+    <div class="newsletter reveal">
+      <div>
+        <h2>Get early access to new carvings.</h2>
+        <p>One email a month — new stamp drops, care tips, and studio notes. No spam, ever.</p>
+      </div>
+      <form class="news-form" id="newsForm">
+        <input type="email" required placeholder="you@email.com" aria-label="Email address">
+        <button type="submit" class="btn btn-gold">Subscribe</button>
+      </form>
+    </div>
+  </div>
+</section>
+</main>
+
+<!-- ============================= FOOTER ============================= -->
+<footer>
+  <div class="wrap">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="#home" class="logo">
+          <span class="logo-badge"><img src="img/Screenshot 2026-08-28 213306.png" alt="WBD — Wood Block Design"></span>
+        </a>
+        <p>Handcrafted wooden printing stamps for creative brands — carved from natural wood, one impression at a time.</p>
+        <div class="social-row">
+          <a href="#" class="icon-btn" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg></a>
+          <a href="#" class="icon-btn" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 9h3V5h-3c-2 0-3.5 1.5-3.5 3.5V11H8v4h2.5v6h3v-6H16l.5-4h-3V9z"/></svg></a>
+          <a href="#" class="icon-btn" aria-label="WhatsApp"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 20l1.3-3.9A8 8 0 1112 20a8 8 0 01-4-1.1L4 20z"/></svg></a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Shop</h4>
+        <a href="#shop">Logo Stamps</a>
+        <a href="#shop">Pattern Stamps</a>
+        <a href="#shop">Fabric Printing</a>
+        <a href="#shop">Packaging Stamps</a>
+      </div>
+      <div class="footer-col">
+        <h4>Studio</h4>
+        <a href="#craft">Our Craft</a>
+        <a href="#process">Process</a>
+        <a href="#testimonials">Reviews</a>
+        <a href="#contact">Contact</a>
+      </div>
+      <div class="footer-col">
+        <h4>Support</h4>
+        <a href="#" data-support="shipping">Shipping &amp; Returns</a>
+        <a href="#" data-support="care">Care Instructions</a>
+        <a href="#" data-support="custom">Custom Orders</a>
+        <a href="#" data-support="faqs">FAQs</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 WBD — Wood Brand Design. All rights reserved.</span>
+      <span>Made by hand, carved with care.</span>
+    </div>
+  </div>
+</footer>
+
+<!-- ============================= OVERLAY ============================= -->
+<div class="overlay" id="overlay"></div>
+
+<!-- ============================= CART DRAWER ============================= -->
+<aside class="drawer" id="cartDrawer" aria-label="Shopping cart">
+  <div class="drawer-head">
+    <h3>Your Cart</h3>
+    <button class="drawer-close" data-close><svg viewBox="0 0 24 24" width="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+  </div>
+  <div class="drawer-body" id="cartBody"></div>
+  <div class="drawer-foot" id="cartFoot"></div>
+</aside>
+
+<!-- ============================= WISHLIST DRAWER ============================= -->
+<aside class="drawer" id="wishDrawer" aria-label="Wishlist">
+  <div class="drawer-head">
+    <h3>Your Wishlist</h3>
+    <button class="drawer-close" data-close><svg viewBox="0 0 24 24" width="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+  </div>
+  <div class="drawer-body" id="wishBody"></div>
+</aside>
+
+<!-- ============================= LOGIN / SIGNUP MODAL ============================= -->
+<div class="modal" id="authModal" role="dialog" aria-modal="true">
+  <div class="modal-inner">
+    <button class="modal-close" data-close><svg viewBox="0 0 24 24" width="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+
+    <div id="loggedOutView">
+      <div class="modal-tabs">
+        <button class="modal-tab active" data-tab="login">Log In</button>
+        <button class="modal-tab" data-tab="signup">Sign Up</button>
+      </div>
+
+      <form id="loginForm">
+        <h3 style="font-size:22px; margin-bottom:20px;">Welcome back</h3>
+        <div class="field">
+          <label>Email</label>
+          <input type="email" required id="loginEmail" placeholder="you@email.com">
+        </div>
+        <div class="field">
+          <label>Password</label>
+          <input type="password" required id="loginPassword" placeholder="••••••••" minlength="4">
+        </div>
+        <div class="field-error" id="loginError">Invalid email or password.</div>
+        <button class="btn btn-solid btn-block" type="submit">Log In</button>
+        <p class="helper-row"><span>New here? <a data-tab-link="signup">Create an account</a></span></p>
+      </form>
+
+      <form id="signupForm" style="display:none;">
+        <h3 style="font-size:22px; margin-bottom:20px;">Create your account</h3>
+        <div class="field">
+          <label>Full name</label>
+          <input type="text" required id="signupName" placeholder="Your name">
+        </div>
+        <div class="field">
+          <label>Email</label>
+          <input type="email" required id="signupEmail" placeholder="you@email.com">
+        </div>
+        <div class="field">
+          <label>Password</label>
+          <input type="password" required id="signupPassword" placeholder="At least 6 characters" minlength="6">
+        </div>
+        <div class="field-error" id="signupError">Please check the fields above.</div>
+        <button class="btn btn-solid btn-block" type="submit">Create Account</button>
+        <p class="helper-row"><span>Already a member? <a data-tab-link="login">Log in</a></span></p>
+      </form>
+    </div>
+
+    <div id="loggedInView" style="display:none;">
+      <div class="account-chip">
+        <div class="avatar" id="accInitial">A</div>
+        <div>
+          <strong id="accName" style="display:block; font-size:15px;">—</strong>
+          <span style="font-size:12.5px; color:var(--ink-soft);" id="accEmail">—</span>
+        </div>
+      </div>
+      <button class="btn btn-block" id="logoutBtn">Log Out</button>
+      <p style="margin-top:16px; font-size:12.5px; color:var(--ink-soft);">Signed-in state is kept for this browsing session. Connect a backend (e.g. Node/Express + a database) to persist accounts across visits.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ============================= PRODUCT QUICK VIEW ============================= -->
+<div class="modal pv-modal" id="productModal" role="dialog" aria-modal="true">
+  <button class="modal-close" data-close><svg viewBox="0 0 24 24" width="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+  <div class="pv-body">
+    <div class="pv-media"><div id="pvGlyph"></div></div>
+    <div class="pv-info">
+      <span class="eyebrow" id="pvCat" style="margin-bottom:8px;">Category</span>
+      <h3 style="font-size:24px;" id="pvName">Product name</h3>
+      <div class="stars" id="pvStars">★★★★★</div>
+      <p style="margin-top:14px; color:var(--ink-soft); font-size:14px;" id="pvDesc">Description</p>
+      <div class="price" id="pvPrice" style="font-size:22px; margin-top:18px;">Rs. 0</div>
+      <div class="qty-row" style="margin-top:16px;">
+        <button class="qty-btn" id="pvMinus">−</button>
+        <span class="qty-val" id="pvQty">1</span>
+        <button class="qty-btn" id="pvPlus">+</button>
+      </div>
+      <div class="card-actions" style="margin-top:22px;">
+        <button class="btn btn-solid" id="pvAddCart">Add to Cart</button>
+        <button class="btn btn-gold" id="pvBuyNow">Buy Now</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============================= CHECKOUT MODAL ============================= -->
+<div class="modal" id="checkoutModal" role="dialog" aria-modal="true">
+  <div class="modal-inner">
+    <button class="modal-close" data-close><svg viewBox="0 0 24 24" width="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+    <div id="checkoutForm">
+      <h3 style="font-size:22px; margin-bottom:6px;">Checkout</h3>
+      <p style="color:var(--ink-soft); font-size:13px; margin-bottom:20px;">Order summary</p>
+      <div id="checkoutSummary" style="margin-bottom:18px;"></div>
+      <div class="field"><label>Full name</label><input type="text" required id="coName" placeholder="Your name"></div>
+      <div class="field"><label>Delivery address</label><input type="text" required id="coAddress" placeholder="House, street, city"></div>
+      <div class="field"><label>Phone number</label><input type="tel" required id="coPhone" placeholder="03xx-xxxxxxx"></div>
+      <button class="btn btn-solid btn-block" id="placeOrderBtn">Place Order</button>
+      <p style="margin-top:14px; font-size:12px; color:var(--ink-soft);">This demo checkout doesn't process real payments. Wire this form to a payment gateway (Stripe, JazzCash, EasyPaisa) and a backend order system to go live.</p>
+    </div>
+    <div id="checkoutSuccess" style="display:none; text-align:center; padding:20px 0;">
+      <div style="width:64px;height:64px;border-radius:50%;background:var(--ok);display:flex;align-items:center;justify-content:center;margin:0 auto 18px;">
+        <svg viewBox="0 0 24 24" width="30" fill="none" stroke="#fff" stroke-width="2.4"><path d="M5 13l4 4L19 7"/></svg>
+      </div>
+      <h3 style="font-size:20px;">Order placed!</h3>
+      <p style="color:var(--ink-soft); font-size:13.5px; margin-top:8px;">Order <strong id="orderId" class="mono"></strong> has been received. A confirmation would normally be emailed to you.</p>
+      <button class="btn btn-solid" style="margin-top:20px;" data-close>Continue Shopping</button>
+    </div>
+  </div>
+</div>
+
+<!-- ============================= SUPPORT MODAL (Shipping / Care / Custom Orders / FAQs) ============================= -->
+<div class="modal support-modal" id="supportModal" role="dialog" aria-modal="true">
+  <div class="modal-inner">
+    <button class="modal-close" data-close><svg viewBox="0 0 24 24" width="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+
+    <div class="support-tabs">
+      <button class="support-tab active" data-support-tab="shipping">Shipping &amp; Returns</button>
+      <button class="support-tab" data-support-tab="care">Care Instructions</button>
+      <button class="support-tab" data-support-tab="custom">Custom Orders</button>
+      <button class="support-tab" data-support-tab="faqs">FAQs</button>
+    </div>
+
+    <!-- Shipping & Returns -->
+    <div class="support-panel active" data-support-panel="shipping">
+      <span class="support-sub">Support</span>
+      <h3>Shipping &amp; Returns</h3>
+
+      <div class="support-block">
+        <h4>Delivery times</h4>
+        <table class="support-table">
+          <tr><th>Location</th><th>Estimated delivery</th></tr>
+          <tr><td>Karachi</td><td>1–2 business days</td></tr>
+          <tr><td>Lahore, Islamabad &amp; major cities</td><td>2–4 business days</td></tr>
+          <tr><td>Rest of Pakistan</td><td>3–6 business days</td></tr>
+        </table>
+      </div>
+
+      <div class="support-block">
+        <h4>Shipping cost</h4>
+        <p>Standard delivery is <strong>Rs. 250</strong> nationwide, and free on orders over <strong>Rs. 5,000</strong>. Every stamp is padded and boxed to travel safely — carved details are protected in foam before dispatch.</p>
+      </div>
+
+      <div class="support-block">
+        <h4>Returns &amp; exchanges</h4>
+        <ul>
+          <li>Ready-made stamps can be returned within 7 days of delivery if unused and in original packaging.</li>
+          <li>Custom or personalised carvings are made to order and are non-returnable, unless the piece arrives damaged or with a carving error on our part.</li>
+          <li>To start a return, contact us with your order number and a photo of the item.</li>
+          <li>Refunds are issued to the original payment method within 5–7 business days of the returned item being received.</li>
+        </ul>
+      </div>
+
+      <div class="support-block">
+        <h4>Damaged in transit?</h4>
+        <p>Wood can chip if a parcel is mishandled. Message us within 48 hours of delivery with photos and we'll send a replacement or refund at no extra cost.</p>
+      </div>
+    </div>
+
+    <!-- Care Instructions -->
+    <div class="support-panel" data-support-panel="care">
+      <span class="support-sub">Support</span>
+      <h3>Care Instructions</h3>
+      <p style="color:var(--ink-soft); font-size:13.8px; margin-bottom:20px;">A wood stamp rewards a little care — treat it well and the carving will stay sharp for hundreds of impressions.</p>
+
+      <div class="support-block">
+        <h4>After every print</h4>
+        <ul>
+          <li>Wipe the carved face with a damp (not soaked) cloth right after use, before ink dries in the grooves.</li>
+          <li>For fabric or oil-based inks, a small amount of mild soap on the cloth lifts pigment without swelling the wood.</li>
+          <li>Pat dry with a soft cloth and let the block air-dry face-down on a paper towel.</li>
+        </ul>
+      </div>
+
+      <div class="support-block">
+        <h4>Storage</h4>
+        <ul>
+          <li>Keep stamps somewhere dry and out of direct sunlight — humidity and heat are what warp wood over time.</li>
+          <li>Store flat or upright with the carved face protected, never face-down under weight.</li>
+          <li>A light rub of food-safe mineral oil every few months keeps the wood from drying out and cracking.</li>
+        </ul>
+      </div>
+
+      <div class="support-block">
+        <h4>What to avoid</h4>
+        <ul>
+          <li>Never soak the stamp or run it under hot water — the wood can swell and the carve can lose its edge.</li>
+          <li>Avoid dishwashers, harsh solvents, and abrasive scrubbing on the carved face.</li>
+          <li>Don't leave ink to dry on the block between uses — it builds up and dulls fine detail over time.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Custom Orders -->
+    <div class="support-panel" data-support-panel="custom">
+      <span class="support-sub">Support</span>
+      <h3>Custom Orders</h3>
+      <p style="color:var(--ink-soft); font-size:13.8px; margin-bottom:20px;">Have a logo, monogram or pattern you'd like carved into wood? Here's how a custom order works.</p>
+
+      <div class="support-block">
+        <h4>How it works</h4>
+        <ul>
+          <li><strong>Share your design</strong> — send a logo file, sketch, or reference image along with the size you need.</li>
+          <li><strong>We send a proof</strong> — our carvers translate it into a line-carve preview so you can approve it before any wood is cut.</li>
+          <li><strong>We carve by hand</strong> — once approved, your block is routed and finished by hand in our studio.</li>
+          <li><strong>Test print &amp; ship</strong> — every custom stamp is test-printed for ink release before it's packed and sent to you.</li>
+        </ul>
+      </div>
+
+      <div class="support-block">
+        <h4>Turnaround &amp; pricing</h4>
+        <p>Custom stamps typically take <strong>5–8 business days</strong> to carve after design approval, depending on detail and size. Pricing starts around <strong>Rs. 2,800</strong> for a simple logo mark and scales with size and intricacy — we'll confirm an exact quote once we see your design.</p>
+      </div>
+
+      <div class="support-block">
+        <h4>Good to know</h4>
+        <ul>
+          <li>Very fine detail (thin hairlines, small text under 8pt) may need slight simplification to carve and print cleanly — we'll flag this in your proof.</li>
+          <li>Bulk or repeat business orders (packaging runs, retail branding) get a dedicated quote — reach out via the newsletter form or WhatsApp.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- FAQs -->
+    <div class="support-panel" data-support-panel="faqs">
+      <span class="support-sub">Support</span>
+      <h3>Frequently Asked Questions</h3>
+
+      <details class="faq-item" open>
+        <summary>What wood are the stamps made from?</summary>
+        <p>We use responsibly sourced hardwoods selected for grain stability and carving detail, so the block holds fine lines without splitting.</p>
+      </details>
+      <details class="faq-item">
+        <summary>Can I use these stamps on fabric?</summary>
+        <p>Yes — our Fabric Printing collection is designed specifically for cotton, linen and similar textiles, paired with fabric-safe, washable ink.</p>
+      </details>
+      <details class="faq-item">
+        <summary>How many prints will one stamp last for?</summary>
+        <p>With normal use and the care steps above, a well-kept block comfortably holds detail through hundreds of impressions.</p>
+      </details>
+      <details class="faq-item">
+        <summary>Do you ship outside Pakistan?</summary>
+        <p>Currently we ship nationwide within Pakistan. For international orders, message us directly and we'll advise on shipping options and cost.</p>
+      </details>
+      <details class="faq-item">
+        <summary>What ink should I use?</summary>
+        <p>Any water- or oil-based block-printing ink works well. For fabric, use a fabric-safe pigment ink and heat-set it per the ink's instructions.</p>
+      </details>
+      <details class="faq-item">
+        <summary>Can I request a size other than what's listed?</summary>
+        <p>Yes, most designs can be scaled up or down. Mention your preferred size when placing a custom order and we'll confirm feasibility.</p>
+      </details>
+    </div>
+  </div>
+</div>
+
+<div id="toastHost"></div>
+<script>
+(function(){
+"use strict";
+
+/* ============================= PRODUCT DATA ============================= */
+const GLYPHS = {
+  owl: `<svg viewBox="0 0 48 48" fill="currentColor"><path d="M24 8c-6 0-10 5-10 11 0 4 1.5 6.5 3 8l-2.5 6 5-2.5c1.4.6 3 1 4.5 1s3.1-.4 4.5-1l5 2.5-2.5-6c1.5-1.5 3-4 3-8 0-6-4-11-10-11z"/><circle cx="19.5" cy="18.5" r="2.6" fill="#F6EEDC"/><circle cx="28.5" cy="18.5" r="2.6" fill="#F6EEDC"/><path d="M24 24l-2 3.2h4L24 24z" fill="#F6EEDC"/></svg>`,
+  pattern: `<svg viewBox="0 0 48 48" fill="currentColor"><rect x="6" y="6" width="8" height="8" rx="2"/><rect x="20" y="6" width="8" height="8" rx="2"/><rect x="34" y="6" width="8" height="8" rx="2"/><rect x="6" y="20" width="8" height="8" rx="2"/><rect x="20" y="20" width="8" height="8" rx="2"/><rect x="34" y="20" width="8" height="8" rx="2"/><rect x="6" y="34" width="8" height="8" rx="2"/><rect x="20" y="34" width="8" height="8" rx="2"/><rect x="34" y="34" width="8" height="8" rx="2"/></svg>`,
+  monogram: `<svg viewBox="0 0 48 48" fill="currentColor"><circle cx="24" cy="24" r="19" fill="none" stroke="currentColor" stroke-width="2.5"/><text x="24" y="32" font-size="20" text-anchor="middle" font-family="Georgia,serif" fill="currentColor">W</text></svg>`,
+  leaf: `<svg viewBox="0 0 48 48" fill="currentColor"><path d="M10 38C10 20 24 8 40 8c0 16-12 30-30 30-2 0-3-.4-4-1z"/><path d="M12 36c8-8 16-14 26-24" stroke="#F6EEDC" stroke-width="1.6" fill="none"/></svg>`,
+  fabric: `<svg viewBox="0 0 48 48" fill="currentColor"><path d="M8 12h32v6l-6 4 6 4v6l-6 4 6 4v2H8v-2l6-4-6-4v-6l6-4-6-4z"/></svg>`,
+  box: `<svg viewBox="0 0 48 48" fill="currentColor"><path d="M6 14l18-8 18 8-18 8-18-8z"/><path d="M6 14v20l18 8V22L6 14z" opacity=".75"/><path d="M42 14v20l-18 8V22l18-8z" opacity=".55"/></svg>`
+};
+
+const PRODUCTS = [
+  {id:1, name:"Signature Owl Stamp", cat:"logo", catLabel:"Logo Stamps", price:2800, was:3400, glyph:"owl", rating:5,
+    desc:"Our flagship hand-carved owl mark — the same motif WBD carves for its own brand.",
+    tag:"Bestseller", image: "https://i.pinimg.com/736x/89/12/e2/8912e258dc0ea18eefd34232dc8624a3.jpg"  },
+  {id:2, name:"Repeat Pattern Block", cat:"pattern", catLabel:"Pattern Stamps", price:2200, was:null, glyph:"pattern", rating:5,
+    desc:"A grid-based motif carved for clean, edge-to-edge repeats across large surfaces.",
+    tag:"New", image:"https://i.pinimg.com/736x/b8/0e/97/b80e9739da138392942c871570a3126a.jpg"},
+  {id:3, name:"Monogram Brand Stamp", cat:"logo", catLabel:"Logo Stamps", price:3200, was:null, glyph:"monogram", rating:4,
+    desc:"Custom single-letter or initials stamp, carved to your brand's exact typeface feel.",
+    tag:"Custom", image:"https://i.pinimg.com/736x/fb/27/67/fb2767827cb94d8189fef250c035679c.jpg"},
+  {id:4, name:"Botanical Fabric Stamp", cat:"fabric", catLabel:"Fabric Printing", price:2600, was:3000, glyph:"leaf", rating:5,
+    desc:"Fine leaf-vein detailing designed for smooth ink transfer on cotton and linen.",
+    tag:null, image:"https://i.pinimg.com/1200x/d1/49/b8/d149b8d92f5ff87e136cfd427557d66f.jpg"},
+  {id:5, name:"Textile Printing Kit", cat:"fabric", catLabel:"Fabric Printing", price:4900, was:5800, glyph:"fabric", rating:4,
+    desc:"A set of 3 coordinating stamps for building layered patterns on clothing.",
+    tag:"Set of 3", image:"data:image/jpeg;base64,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"},
+  {id:6, name:"Kraft Packaging Stamp", cat:"packaging", catLabel:"Packaging", price:2400, was:null, glyph:"box", rating:5,
+    desc:"Designed for kraft paper and cardboard — bold lines that read at a glance.",
+    tag:null, image:"https://i.pinimg.com/1200x/ce/c3/d6/cec3d627f1dd5bee73f72c7fdb35ab1e.jpg"},
+  {id:7, name:"Mini Motif Stamp Set", cat:"pattern", catLabel:"Pattern Stamps", price:3100, was:null, glyph:"pattern", rating:4,
+    desc:"Four small accent stamps for corners, tags and detail work.",
+    tag:"Set of 4", image:"https://i.pinimg.com/1200x/57/e4/04/57e404ae6bf31afb0f4585502540c946.jpg"},
+  {id:8, name:"Heritage Owl Mini", cat:"logo", catLabel:"Logo Stamps", price:1900, was:2300, glyph:"owl", rating:5,
+    desc:"A compact version of our signature owl mark, sized for cards and labels.",
+    tag:null, image:"https://i.pinimg.com/1200x/22/9e/02/229e029535bb880634db9cd661ada62b.jpg"},
+  {id:9, name:"Gift Box Branding Stamp", cat:"packaging", catLabel:"Packaging", price:2750, was:null, glyph:"box", rating:4,
+    desc:"Carved for use directly on gift boxes and courier packaging alike.",
+    tag:null, image:"https://i.pinimg.com/736x/63/27/f0/6327f0cf4af7635395295d81d6a6565a.jpg"}
+];
+
+/* ============================= STATE ============================= */
+let cart = [];        // {id, qty}
+let wishlist = [];     // [id]
+let currentUser = null; // {name, email}
+let users = [];         // session-only mock user store
+let activeFilter = "all";
+let visibleCount = 6;
+let pvProduct = null;
+let pvQty = 1;
+let buyNowMode = false;
+
+const fmt = n => "Rs. " + n.toLocaleString("en-PK");
+const $ = sel => document.querySelector(sel);
+const $all = sel => Array.from(document.querySelectorAll(sel));
+
+/* ============================= TOAST ============================= */
+function toast(msg){
+  const host = $("#toastHost");
+  const el = document.createElement("div");
+  el.className = "toast";
+  el.innerHTML = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 13l4 4L19 7"/></svg><span>${msg}</span>`;
+  host.appendChild(el);
+  requestAnimationFrame(()=> el.classList.add("show"));
+  setTimeout(()=>{ el.classList.remove("show"); setTimeout(()=> el.remove(), 400); }, 2600);
+}
+
+/* ============================= OVERLAY / DRAWER / MODAL HELPERS ============================= */
+const overlay = $("#overlay");
+function openPanel(el){
+  overlay.classList.add("show");
+  el.classList.add("show");
+  document.body.style.overflow = "hidden";
+}
+function closeAllPanels(){
+  overlay.classList.remove("show");
+  $all(".drawer.show, .modal.show").forEach(el => el.classList.remove("show"));
+  document.body.style.overflow = "";
+}
+overlay.addEventListener("click", closeAllPanels);
+$all("[data-close]").forEach(btn => btn.addEventListener("click", closeAllPanels));
+document.addEventListener("keydown", e => { if(e.key === "Escape") closeAllPanels(); });
+
+/* ============================= PRODUCT RENDERING ============================= */
+function stars(n){
+  let s = "";
+  for(let i=0;i<5;i++){ s += `<svg viewBox="0 0 20 20"><path d="M10 1l2.6 5.9 6.4.6-4.8 4.3 1.4 6.2L10 14.9 4.4 18l1.4-6.2L1 7.5l6.4-.6z" fill="${i<n?'currentColor':'none'}" stroke="currentColor" stroke-width="1"/></svg>`; }
+  return s;
+}
+
+function renderProducts(){
+  const grid = $("#productGrid");
+  const filtered = PRODUCTS.filter(p => activeFilter === "all" || p.cat === activeFilter);
+  const toShow = filtered.slice(0, visibleCount);
+  grid.innerHTML = toShow.map(p => `
+    <div class="product-card reveal in" data-id="${p.id}">
+      <div class="product-media" data-tilt>
+        ${p.tag ? `<span class="product-tag">${p.tag}</span>` : ""}
+        <button class="wish-btn ${wishlist.includes(p.id)?'active':''}" data-wish="${p.id}" aria-label="Toggle wishlist">
+          <svg viewBox="0 0 24 24"><path d="M12 20s-7-4.35-9.5-8.5C.7 8 2 4.5 5.5 4c2-.3 3.7.7 4.5 2.2.8-1.5 2.5-2.5 4.5-2.2C18 4.5 19.3 8 17.5 11.5 15 15.65 12 20 12 20z"/></svg>
+        </button>
+        <div class="glyph ${p.image ? 'glyph-img' : ''}">
+          ${p.image ? `<img src="${p.image}" alt="${p.name}" />` : GLYPHS[p.glyph]}
+        </div>
+      </div>
+      <div class="product-info">
+        <span class="cat">${p.catLabel}</span>
+        <h3 data-quickview="${p.id}" style="cursor:pointer;">${p.name}</h3>
+        <div class="stars">${stars(p.rating)}</div>
+        <p class="desc">${p.desc}</p>
+        <div class="price-row">
+          <span class="price">${fmt(p.price)} ${p.was ? `<small>${fmt(p.was)}</small>`:""}</span>
+        </div>
+        <div class="card-actions">
+          <button class="btn btn-solid" data-addcart="${p.id}">Add to Cart</button>
+          <button class="btn btn-gold" data-buynow="${p.id}">Buy Now</button>
+        </div>
+      </div>
+    </div>
+  `).join("");
+
+  $("#loadMoreBtn").style.display = visibleCount >= filtered.length ? "none" : "inline-flex";
+
+  // tilt effect
+  $all("[data-tilt]").forEach(media => {
+    media.addEventListener("mousemove", e => {
+      const r = media.getBoundingClientRect();
+      const x = (e.clientX - r.left)/r.width - .5;
+      const y = (e.clientY - r.top)/r.height - .5;
+      media.style.transform = `rotateY(${x*14}deg) rotateX(${-y*14}deg)`;
+    });
+    media.addEventListener("mouseleave", () => media.style.transform = "rotateY(0) rotateX(0)");
+  });
+}
+
+$all(".filter-chip").forEach(chip => chip.addEventListener("click", () => {
+  $all(".filter-chip").forEach(c => c.classList.remove("active"));
+  chip.classList.add("active");
+  activeFilter = chip.dataset.filter;
+  visibleCount = 6;
+  renderProducts();
+}));
+$("#loadMoreBtn").addEventListener("click", () => { visibleCount += 6; renderProducts(); });
+
+/* ============================= EVENT DELEGATION: cards ============================= */
+$("#productGrid").addEventListener("click", e => {
+  const wishBtn = e.target.closest("[data-wish]");
+  const addBtn = e.target.closest("[data-addcart]");
+  const buyBtn = e.target.closest("[data-buynow]");
+  const qvTitle = e.target.closest("[data-quickview]");
+
+  if(wishBtn) toggleWishlist(Number(wishBtn.dataset.wish));
+  if(addBtn) addToCart(Number(addBtn.dataset.addcart), 1);
+  if(buyBtn) openQuickView(Number(buyBtn.dataset.buynow), true);
+  if(qvTitle) openQuickView(Number(qvTitle.dataset.quickview), false);
+});
+
+/* ============================= WISHLIST ============================= */
+function toggleWishlist(id){
+  const idx = wishlist.indexOf(id);
+  if(idx > -1){ wishlist.splice(idx,1); toast("Removed from wishlist"); }
+  else { wishlist.push(id); toast("Added to wishlist ♥"); }
+  renderProducts();
+  renderWishlistDrawer();
+  updateBadges();
+}
+function renderWishlistDrawer(){
+  const body = $("#wishBody");
+  if(wishlist.length === 0){
+    body.innerHTML = `<div class="empty-state"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 20s-7-4.35-9.5-8.5C.7 8 2 4.5 5.5 4c2-.3 3.7.7 4.5 2.2.8-1.5 2.5-2.5 4.5-2.2C18 4.5 19.3 8 17.5 11.5 15 15.65 12 20 12 20z"/></svg><p>Your wishlist is empty.<br>Tap the heart on any stamp to save it here.</p></div>`;
+    return;
+  }
+  body.innerHTML = wishlist.map(id => {
+    const p = PRODUCTS.find(x => x.id === id);
+    const mediaContent = p.image 
+      ? `<img src="${p.image}" alt="${p.name}" style="width:100%; height:100%; object-fit:cover; border-radius:6px;" />` 
+      : GLYPHS[p.glyph];
+    return `<div class="line-item">
+      <div class="line-media">${mediaContent}</div>
+      <div class="line-info">
+        <span class="cat">${p.catLabel}</span>
+        <h4>${p.name}</h4>
+        <div class="line-price">${fmt(p.price)}</div>
+        <div style="display:flex; gap:8px; margin-top:8px;">
+          <button class="btn btn-sm btn-solid" data-wish-addcart="${p.id}">Add to Cart</button>
+          <button class="line-remove" data-wish-remove="${p.id}">Remove</button>
+        </div>
+      </div>
+    </div>`;
+  }).join("");
+}
+$("#wishBody").addEventListener("click", e => {
+  const addBtn = e.target.closest("[data-wish-addcart]");
+  const rmBtn = e.target.closest("[data-wish-remove]");
+  if(addBtn){ addToCart(Number(addBtn.dataset.wishAddcart),1); }
+  if(rmBtn){ toggleWishlist(Number(rmBtn.dataset.wishRemove)); }
+});
+$("#openWishlist").addEventListener("click", () => { renderWishlistDrawer(); openPanel($("#wishDrawer")); });
+
+/* ============================= CART ============================= */
+function addToCart(id, qty){
+  const line = cart.find(c => c.id === id);
+  if(line) line.qty += qty; else cart.push({id, qty});
+  updateBadges();
+  renderCartDrawer();
+  toast("Added to cart");
+}
+function changeQty(id, delta){
+  const line = cart.find(c => c.id === id);
+  if(!line) return;
+  line.qty += delta;
+  if(line.qty <= 0) cart = cart.filter(c => c.id !== id);
+  updateBadges();
+  renderCartDrawer();
+}
+function removeFromCart(id){
+  cart = cart.filter(c => c.id !== id);
+  updateBadges();
+  renderCartDrawer();
+}
+function cartTotal(){
+  return cart.reduce((sum,c) => {
+    const p = PRODUCTS.find(x => x.id === c.id);
+    return sum + p.price * c.qty;
+  }, 0);
+}
+function renderCartDrawer(){
+  const body = $("#cartBody");
+  const foot = $("#cartFoot");
+  if(cart.length === 0){
+    body.innerHTML = `<div class="empty-state"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="9" cy="21" r="1.4"/><circle cx="18" cy="21" r="1.4"/><path d="M2.5 3h2l2.4 12.1a2 2 0 0 0 2 1.6h7.6a2 2 0 0 0 2-1.6L21 7H6"/></svg><p>Your cart is empty.<br>Add a stamp to get started.</p></div>`;
+    foot.innerHTML = "";
+    return;
+  }
+  body.innerHTML = cart.map(c => {
+    const p = PRODUCTS.find(x => x.id === c.id);
+    const mediaContent = p.image 
+      ? `<img src="${p.image}" alt="${p.name}" style="width:100%; height:100%; object-fit:cover; border-radius:6px;" />` 
+      : GLYPHS[p.glyph];
+    return `<div class="line-item">
+      <div class="line-media">${mediaContent}</div>
+      <div class="line-info">
+        <span class="cat">${p.catLabel}</span>
+        <h4>${p.name}</h4>
+        <div class="qty-row">
+          <button class="qty-btn" data-dec="${p.id}">−</button>
+          <span class="qty-val">${c.qty}</span>
+          <button class="qty-btn" data-inc="${p.id}">+</button>
+          <button class="line-remove" data-remove="${p.id}">Remove</button>
+        </div>
+      </div>
+      <div class="line-price">${fmt(p.price * c.qty)}</div>
+    </div>`;
+  }).join("");
+  const subtotal = cartTotal();
+  const shipping = subtotal > 5000 ? 0 : 250;
+  foot.innerHTML = `
+    <div class="summary-row"><span>Subtotal</span><span>${fmt(subtotal)}</span></div>
+    <div class="summary-row"><span>Shipping</span><span>${shipping === 0 ? "Free" : fmt(shipping)}</span></div>
+    <div class="summary-row total"><span>Total</span><span>${fmt(subtotal + shipping)}</span></div>
+    <button class="btn btn-solid btn-block" id="cartCheckoutBtn">Checkout</button>
+  `;
+  $("#cartCheckoutBtn").addEventListener("click", () => { buyNowMode = false; openCheckout(); });
+}
+$("#cartBody").addEventListener("click", e => {
+  const inc = e.target.closest("[data-inc]");
+  const dec = e.target.closest("[data-dec]");
+  const rm = e.target.closest("[data-remove]");
+  if(inc) changeQty(Number(inc.dataset.inc), 1);
+  if(dec) changeQty(Number(dec.dataset.dec), -1);
+  if(rm) removeFromCart(Number(rm.dataset.remove));
+});
+$("#openCart").addEventListener("click", () => { renderCartDrawer(); openPanel($("#cartDrawer")); });
+
+function updateBadges(){
+  const cartCount = cart.reduce((s,c)=>s+c.qty,0);
+  const cb = $("#cartBadge"); cb.textContent = cartCount; cb.style.display = cartCount ? "flex" : "none";
+  const wb = $("#wishBadge"); wb.textContent = wishlist.length; wb.style.display = wishlist.length ? "flex" : "none";
+}
+
+/* ============================= QUICK VIEW ============================= */
+function openQuickView(id, isBuyNow){
+  pvProduct = PRODUCTS.find(p => p.id === id);
+  pvQty = 1;
+  buyNowMode = !!isBuyNow;
+  
+  $("#pvGlyph").innerHTML = pvProduct.image 
+    ? `<img src="${pvProduct.image}" alt="${pvProduct.name}" />` 
+    : GLYPHS[pvProduct.glyph];
+
+  $("#pvCat").textContent = pvProduct.catLabel;
+  $("#pvName").textContent = pvProduct.name;
+  $("#pvStars").innerHTML = stars(pvProduct.rating);
+  $("#pvDesc").textContent = pvProduct.desc;
+  $("#pvPrice").textContent = fmt(pvProduct.price);
+  $("#pvQty").textContent = pvQty;
+  openPanel($("#productModal"));
+  if(isBuyNow){
+    setTimeout(()=> $("#pvBuyNow").focus(), 150);
+  }
+}
+$("#pvMinus").addEventListener("click", () => { pvQty = Math.max(1,pvQty-1); $("#pvQty").textContent = pvQty; });
+$("#pvPlus").addEventListener("click", () => { pvQty += 1; $("#pvQty").textContent = pvQty; });
+$("#pvAddCart").addEventListener("click", () => { addToCart(pvProduct.id, pvQty); closeAllPanels(); });
+$("#pvBuyNow").addEventListener("click", () => {
+  cart = cart.filter(c => c.id !== pvProduct.id);
+  cart.push({id: pvProduct.id, qty: pvQty});
+  updateBadges();
+  buyNowMode = true;
+  openCheckout(true);
+});
+
+/* ============================= CHECKOUT ============================= */
+function openCheckout(onlyItem){
+  const items = onlyItem ? cart.filter(c => c.id === pvProduct.id) : cart;
+  if(items.length === 0){ toast("Your cart is empty"); return; }
+  const subtotal = items.reduce((s,c)=> s + PRODUCTS.find(p=>p.id===c.id).price * c.qty, 0);
+  const shipping = subtotal > 5000 ? 0 : 250;
+  $("#checkoutSummary").innerHTML = items.map(c => {
+    const p = PRODUCTS.find(x=>x.id===c.id);
+    return `<div class="summary-row"><span>${p.name} × ${c.qty}</span><span>${fmt(p.price*c.qty)}</span></div>`;
+  }).join("") + `<div class="summary-row"><span>Shipping</span><span>${shipping===0?"Free":fmt(shipping)}</span></div>
+  <div class="summary-row total"><span>Total</span><span>${fmt(subtotal+shipping)}</span></div>`;
+  $("#checkoutForm").style.display = "block";
+  $("#checkoutSuccess").style.display = "none";
+  if(currentUser) $("#coName").value = currentUser.name;
+  closeAllPanels();
+  openPanel($("#checkoutModal"));
+}
+$("#placeOrderBtn").addEventListener("click", () => {
+  const name = $("#coName").value.trim();
+  const addr = $("#coAddress").value.trim();
+  const phone = $("#coPhone").value.trim();
+  if(!name || !addr || !phone){ toast("Please fill all delivery fields"); return; }
+  const id = "WBD-" + Math.floor(100000 + Math.random()*900000);
+  $("#orderId").textContent = id;
+  $("#checkoutForm").style.display = "none";
+  $("#checkoutSuccess").style.display = "block";
+  cart = [];
+  updateBadges();
+  renderCartDrawer();
+});
+
+/* ============================= AUTH ============================= */
+function showAuthModal(){
+  if(currentUser){
+    $("#loggedOutView").style.display = "none";
+    $("#loggedInView").style.display = "block";
+    $("#accName").textContent = currentUser.name;
+    $("#accEmail").textContent = currentUser.email;
+    $("#accInitial").textContent = currentUser.name.charAt(0).toUpperCase();
+  } else {
+    $("#loggedOutView").style.display = "block";
+    $("#loggedInView").style.display = "none";
+  }
+  openPanel($("#authModal"));
+}
+$("#openLogin").addEventListener("click", showAuthModal);
+
+$all(".modal-tab").forEach(tab => tab.addEventListener("click", () => switchAuthTab(tab.dataset.tab)));
+$all("[data-tab-link]").forEach(link => link.addEventListener("click", e => { e.preventDefault(); switchAuthTab(link.dataset.tabLink); }));
+function switchAuthTab(name){
+  $all(".modal-tab").forEach(t => t.classList.toggle("active", t.dataset.tab === name));
+  $("#loginForm").style.display = name === "login" ? "block" : "none";
+  $("#signupForm").style.display = name === "signup" ? "block" : "none";
+}
+
+$("#loginForm").addEventListener("submit", e => {
+  e.preventDefault();
+  const email = $("#loginEmail").value.trim().toLowerCase();
+  const pass = $("#loginPassword").value;
+  const found = users.find(u => u.email === email && u.password === pass);
+  if(!found){ $("#loginError").style.display = "block"; return; }
+  $("#loginError").style.display = "none";
+  currentUser = {name: found.name, email: found.email};
+  toast("Welcome back, " + found.name.split(" ")[0] + "!");
+  showAuthModal();
+});
+
+$("#signupForm").addEventListener("submit", e => {
+  e.preventDefault();
+  const name = $("#signupName").value.trim();
+  const email = $("#signupEmail").value.trim().toLowerCase();
+  const pass = $("#signupPassword").value;
+  if(!name || !email || pass.length < 6){ $("#signupError").style.display = "block"; return; }
+  if(users.find(u => u.email === email)){ $("#signupError").textContent = "An account with this email already exists."; $("#signupError").style.display = "block"; return; }
+  $("#signupError").style.display = "none";
+  users.push({name, email, password:pass});
+  currentUser = {name, email};
+  toast("Account created — welcome, " + name.split(" ")[0] + "!");
+  showAuthModal();
+});
+
+$("#logoutBtn").addEventListener("click", () => { currentUser = null; closeAllPanels(); toast("Logged out"); });
+
+/* ============================= NEWSLETTER (demo) ============================= */
+$("#newsForm").addEventListener("submit", e => { e.preventDefault(); toast("Subscribed! Check your inbox."); e.target.reset(); });
+
+/* ============================= SUPPORT MODAL (Shipping / Care / Custom / FAQs) ============================= */
+function openSupportModal(panel){
+  switchSupportTab(panel || "shipping");
+  openPanel($("#supportModal"));
+}
+function switchSupportTab(name){
+  $all(".support-tab").forEach(t => t.classList.toggle("active", t.dataset.supportTab === name));
+  $all(".support-panel").forEach(p => p.classList.toggle("active", p.dataset.supportPanel === name));
+  const body = $(".support-modal .modal-inner");
+  if(body) body.scrollTop = 0;
+}
+$all("[data-support]").forEach(link => link.addEventListener("click", e => {
+  e.preventDefault();
+  openSupportModal(link.dataset.support);
+}));
+$all(".support-tab").forEach(tab => tab.addEventListener("click", () => switchSupportTab(tab.dataset.supportTab)));
+
+/* ============================= MOBILE MENU ============================= */
+$("#mobileToggle").addEventListener("click", () => {
+  let nav = $(".main-nav");
+  if(nav.style.display === "flex"){ nav.style.display = "none"; }
+  else{
+    nav.style.cssText = "display:flex; position:absolute; top:100%; left:0; right:0; background:var(--bg-cream); flex-direction:column; padding:20px 28px; gap:18px; border-bottom:1px solid rgba(59,36,21,.1);";
+  }
+});
+
+/* ============================= SCROLL REVEAL ============================= */
+const io = new IntersectionObserver(entries => {
+  entries.forEach(en => { if(en.isIntersecting){ en.target.classList.add("in"); io.unobserve(en.target); } });
+}, {threshold:.15});
+document.addEventListener("DOMContentLoaded", () => { $all(".reveal").forEach(el => io.observe(el)); });
+
+/* ============================= INIT ============================= */
+renderProducts();
+renderCartDrawer();
+renderWishlistDrawer();
+updateBadges();
+$all(".reveal").forEach(el => io.observe(el));
+
+})();
+
+</script>
+</body>
+</html>
